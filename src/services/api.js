@@ -1,17 +1,21 @@
 import axios from 'axios';
+import { getAccessToken, getRefreshToken, refreshAccessToken, clearAuthTokens } from './auth';
 
-// Sem VITE_API_URL: em dev o Vite encaminha ``/api`` para o Django (vite.config.js).
-// Com VITE_API_URL: chamadas diretas ao back (útil se o front não usar o proxy).
+const baseURL = import.meta.env.VITE_API_URL ?? '';
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? '',
+  baseURL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Interceptor: injeta CSRF token do cookie em todas as requisições mutação
 api.interceptors.request.use((config) => {
+  const accessToken = getAccessToken();
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
   const csrfCookie = document.cookie
     .split('; ')
     .find((row) => row.startsWith('csrftoken='));
@@ -21,13 +25,34 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Interceptor: redireciona para login em caso de 401/403
 api.interceptors.response.use(
   (res) => res,
-  (error) => {
-    if (error.response?.status === 401 || error.response?.status === 403) {
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (
+      error.response?.status === 401 &&
+      originalRequest &&
+      !originalRequest._retry &&
+      getRefreshToken()
+    ) {
+      originalRequest._retry = true;
+      try {
+        const newAccessToken = await refreshAccessToken();
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        return api(originalRequest);
+      } catch (refreshError) {
+        clearAuthTokens();
+        window.location.href = '/login';
+        return Promise.reject(refreshError);
+      }
+    }
+
+    if (error.response?.status === 403) {
+      clearAuthTokens();
       window.location.href = '/login';
     }
+
     return Promise.reject(error);
   }
 );

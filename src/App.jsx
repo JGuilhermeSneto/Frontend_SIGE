@@ -19,6 +19,7 @@ function App() {
     data: null,
     error: null,
   })
+  const [jwtStatus, setJwtStatus] = useState('Nenhum token JWT encontrado')
 
   useEffect(() => {
     api
@@ -50,6 +51,11 @@ function App() {
             'Não foi possível carregar os dados do banco',
         })
       )
+  }, [])
+
+  useEffect(() => {
+    const accessToken = window.localStorage.getItem('SIGE_ACCESS_TOKEN')
+    setJwtStatus(accessToken ? 'Token JWT presente' : 'Nenhum token JWT encontrado')
   }, [])
 
   const viteOrigin =
@@ -94,6 +100,10 @@ function App() {
               <dd>
                 <code>{apiBase}</code>
               </dd>
+            </div>
+            <div>
+              <dt>Autenticação JWT</dt>
+              <dd>{jwtStatus}</dd>
             </div>
           </dl>
         </section>
