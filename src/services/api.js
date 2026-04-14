@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+// Sem VITE_API_URL: em dev o Vite encaminha ``/api`` para o Django (vite.config.js).
+// Com VITE_API_URL: chamadas diretas ao back (útil se o front não usar o proxy).
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000',
+  baseURL: import.meta.env.VITE_API_URL ?? '',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
