@@ -1,0 +1,4 @@
+.sige-ui-card.sige-card-hover:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-mid) !important;
+}

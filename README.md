@@ -114,6 +114,25 @@ Com `DEBUG=True`, o Vite dev server é usado. Com `DEBUG=False`, o template carr
 - `src/services/api.js` inclui o token CSRF do cookie e redireciona para `/login` em 401/403.
 - O backend expõe `GET /api/ping/` e `GET /api/dashboard/resumo/`.
 
+## 🗺️ Roadmap de Atualização do Frontend (Baseado no Django)
+
+Com as recentes melhorias e implementações concluídas no backend (abril de 2026), o frontend React necessita refletir as seguintes atualizações arquiteturais e funcionais para manter paridade com o sistema base:
+
+### 1. Paridade de "Design System Premium"
+- **Temas Refatorados**: O sistema agora opera *apenas* com 3 temas homologados ("Indigo Profundo", "Cinza Industrial", "Azul Corporativo"). Componentes React estilizados via css/tailwind precisam ser ajustados para ler esses Design Tokens, descartando colorações genéricas.
+- **Componentes Card**: Replicar a UI do *Mural de Avisos* e das *Notificações*, que agora contam com bordas estilo card unificadas (`--bg-surface`, `radius-lg`) e animações de leve elevação (`translateY`) no hover magnético, além da coloração dinâmica em tags baseada em `publico_alvo`.
+
+### 2. Novos Módulos Integrados
+- **Biblioteca Automática:** Consumir a nova rota de Acervo Literário. O app precisa implementar o botão e lógica de "Reservar", tratando os limites (máximo de 2 livros por aluno) exibidos nos endpoints de resposta.
+- **Minha Saúde no Painel Aluno:** Mapear nas rotas do React a visualização do perfil de Saúde/Ficha Médica para alunos logados (permissões de API já corrigidas no Backend).
+
+### 3. Notificações Persistentes e Semânticas
+- Atualizar a interface de timeline ou sininho de notificações para incluir a tipagem de avisos (ícones por tipo):
+  - ⭐️ `NOTA` | ❌ `CHAMADA` | 📝 `CORRECAO` | ✔️ `GABARITO`.
+- Validar se a liberação de gabaritos em "Atividades" pelos professores reflete instantaneamente nos cards dos alunos na versão React.
+
+Se o front consumir esses dados via API (ex: `GET /api/dashboard/resumo/`), certifique-se de prever campos como `publico_alvo` ou tipo de notificação estendida.
+
 ## Estrutura rápida
 
 | Caminho | Função |

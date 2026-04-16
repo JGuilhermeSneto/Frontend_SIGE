@@ -1,0 +1,60 @@
+/* 
+  Tokens de Design Premium (SIGE)
+  Adaptado para o Frontend (React/Vite) para manter paridade absoluta com os painéis Django.
+*/
+
+:root {
+  /* ============================================================
+     Temas Base (Default: Indigo Profundo / Escuro)
+  ============================================================ */
+  --bg-base: #090e1a;
+  --bg-surface: #0f1729;
+  --bg-elevated: #131e33;
+  --bg-hover: #1a2844;
+  --bg-card: var(--bg-surface);
+  
+  --border-subtle: rgba(255, 255, 255, .06);
+  --border-mid: rgba(255, 255, 255, .11);
+  --border-color: var(--border-subtle);
+
+  /* Acentos Oficiais */
+  --accent-violet: #7c6fff; /* Indigo */
+  --accent-cyan: #22d3ee;   /* Informativo / Global */
+  --accent-emerald: #34d399; /* Positivo / Sucesso */
+  --accent-amber: #fbbf24;  /* Alertas / Correção */
+  --accent-ruby: #f87171;   /* Negativo / Erro / Faltas */
+
+  /* Textos */
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  /* Arredondamento */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  
+  /* Sombras */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-hover: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* ============================================================
+   Classes Utilitárias SIGE
+============================================================ */
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text-primary);
+  margin: 0;
+}
