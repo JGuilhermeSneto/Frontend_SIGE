@@ -13,16 +13,26 @@ export default function Card({ title, children, className = '', hoverEffect = tr
       className={`sige-ui-card ${hoverClass} ${className}`}
       style={{
         background: 'var(--bg-surface)',
-        border: '1px solid var(--border-subtle)',
+        border: 'var(--border-width) solid var(--border-color)',
         borderRadius: 'var(--radius-lg)',
-        padding: '18px',
+        padding: '20px',
         boxShadow: 'var(--shadow-card)',
-        transition: 'all 0.3s ease',
+        transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+        position: 'relative',
+        overflow: 'hidden',
         ...style
       }}
     >
       {title && (
-        <h3 style={{ fontSize: '1rem', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <h3 style={{ 
+          fontSize: '1rem', 
+          marginBottom: '16px', 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '10px',
+          color: 'var(--text-primary)',
+          fontWeight: '700'
+        }}>
           {title}
         </h3>
       )}

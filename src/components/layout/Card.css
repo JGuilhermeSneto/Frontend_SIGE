@@ -1,4 +1,25 @@
 .sige-ui-card.sige-card-hover:hover {
-    transform: translateY(-2px);
-    border-color: var(--border-mid) !important;
+    transform: translateY(-5px);
+    border-color: var(--accent-violet) !important;
+    box-shadow: var(--shadow-hover);
+}
+
+.sige-ui-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.05),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.sige-ui-card:hover::after {
+    left: 100%;
 }

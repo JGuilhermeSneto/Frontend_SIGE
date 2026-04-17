@@ -23,11 +23,11 @@ export default function Notificacoes() {
 
   const getIcone = (tipo) => {
     switch (tipo) {
-      case 'NOTA': return <i className="fa-solid fa-star" style={{ color: 'var(--accent-emerald)', marginRight: 4 }}></i>;
-      case 'CHAMADA': return <i className="fa-solid fa-calendar-xmark" style={{ color: 'var(--accent-ruby)', marginRight: 4 }}></i>;
-      case 'CORRECAO': return <i className="fa-solid fa-pen-to-square" style={{ color: 'var(--accent-amber)', marginRight: 4 }}></i>;
-      case 'GABARITO': return <i className="fa-solid fa-check-double" style={{ color: 'var(--accent-cyan)', marginRight: 4 }}></i>;
-      default: return <i className="fa-solid fa-bell" style={{ marginRight: 4 }}></i>;
+      case 'NOTA': return <i className="fa-solid fa-star" style={{ color: 'var(--accent-emerald)', marginRight: 6, fontSize: '0.9rem' }}></i>;
+      case 'CHAMADA': return <i className="fa-solid fa-calendar-xmark" style={{ color: 'var(--accent-ruby)', marginRight: 6, fontSize: '0.9rem' }}></i>;
+      case 'CORRECAO': return <i className="fa-solid fa-pen-nib" style={{ color: 'var(--accent-amber)', marginRight: 6, fontSize: '0.9rem' }}></i>;
+      case 'GABARITO': return <i className="fa-solid fa-check-double" style={{ color: 'var(--accent-cyan)', marginRight: 6, fontSize: '0.9rem' }}></i>;
+      default: return <i className="fa-solid fa-bell" style={{ marginRight: 6, fontSize: '0.9rem', color: 'var(--accent-violet)' }}></i>;
     }
   };
 

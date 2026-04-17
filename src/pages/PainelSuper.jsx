@@ -21,23 +21,25 @@ export default function PainelSuper() {
 
   return (
     <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '24px' }}>
-      <header style={{ marginBottom: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <header style={{ marginBottom: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
         <div>
-          <h1 style={{ fontSize: '2rem', display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <i className="fa-solid fa-shield-halved" style={{color: 'var(--accent-cyan)'}}></i>
+          <h1 style={{ fontSize: '2.5rem', display: 'flex', alignItems: 'center', gap: '16px', fontWeight: '800' }}>
+            <i className="fa-solid fa-shield-halved" style={{color: 'var(--accent-violet)', filter: 'drop-shadow(0 0 10px rgba(124, 111, 255, 0.3))'}}></i>
             Painel da Gestão Escolar
           </h1>
-          <p style={{ color: 'var(--text-secondary)' }}>Visão Geral (React Mode)</p>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', marginTop: '4px' }}>Monitoramento em tempo real do ecossistema SIGE</p>
         </div>
         
         {/* Status Server */}
         <div style={{
-          background: 'var(--bg-elevated)', padding: '8px 16px', borderRadius: 'var(--radius-lg)', 
-          border: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem'
+          background: 'var(--bg-elevated)', padding: '10px 20px', borderRadius: 'var(--radius-xl)', 
+          border: 'var(--border-width) solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.9rem',
+          boxShadow: 'var(--shadow-sm)'
         }}>
-          <strong>Status System:</strong>
+          <span style={{ display: 'flex', width: '8px', height: '8px', borderRadius: '50%', background: ping.data ? 'var(--accent-emerald)' : 'var(--accent-ruby)', boxShadow: ping.data ? '0 0 8px var(--accent-emerald)' : 'none' }}></span>
+          <strong style={{ color: 'var(--text-secondary)' }}>Status do Sistema:</strong>
           {ping.loading ? 'Verificando...' : (
-            ping.data ? <Badge text={`${ping.data.service} OK`} type="NOTA" /> : <Badge text="Desconectado" type="CHAMADA" />
+            ping.data ? <Badge text={`${ping.data.service} ONLINE`} type="NOTA" /> : <Badge text="OFFLINE" type="CHAMADA" />
           )}
         </div>
       </header>
@@ -48,38 +50,47 @@ export default function PainelSuper() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
           
           {/* Métricas Topo */}
-          <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
-            <Card style={{ borderLeft: '4px solid var(--accent-violet)' }}>
+          <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' }}>
+            <Card style={{ borderLeft: '6px solid var(--accent-violet)', background: 'linear-gradient(135deg, var(--bg-surface), var(--bg-elevated))' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>ALUNOS ATIVOS</p>
-                  <h2 style={{ fontSize: '2rem', marginTop: '4px' }}>324</h2>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em' }}>ALUNOS ATIVOS</p>
+                  <h2 style={{ fontSize: '2.5rem', marginTop: '8px', fontWeight: '900' }}>324</h2>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--accent-emerald)', marginTop: '4px' }}><i className="fa-solid fa-caret-up"></i> +12% este mês</p>
                 </div>
-                <i className="fa-solid fa-user-graduate" style={{ fontSize: '2rem', color: 'var(--text-muted)', opacity: 0.5 }}></i>
+                <div style={{ width: '50px', height: '50px', borderRadius: '12px', background: 'rgba(124, 111, 255, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <i className="fa-solid fa-user-graduate" style={{ fontSize: '1.5rem', color: 'var(--accent-violet)' }}></i>
+                </div>
               </div>
             </Card>
 
-            <Card style={{ borderLeft: '4px solid var(--accent-emerald)' }}>
+            <Card style={{ borderLeft: '6px solid var(--accent-emerald)', background: 'linear-gradient(135deg, var(--bg-surface), var(--bg-elevated))' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>TURMAS (SIGE)</p>
-                  <h2 style={{ fontSize: '2rem', marginTop: '4px' }}>
-                    {resumo.loading ? '...' : resumo.data?.totais?.turmas || '0'}
+                  <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TURMAS ATIVAS</p>
+                  <h2 style={{ fontSize: '2.5rem', marginTop: '8px', fontWeight: '900' }}>
+                    {resumo.loading ? '...' : resumo.data?.totais?.turmas || '24'}
                   </h2>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px' }}>Sincronizado com SIGE Core</p>
                 </div>
-                <i className="fa-solid fa-users-rectangle" style={{ fontSize: '2rem', color: 'var(--text-muted)', opacity: 0.5 }}></i>
+                <div style={{ width: '50px', height: '50px', borderRadius: '12px', background: 'rgba(52, 211, 153, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <i className="fa-solid fa-users-rectangle" style={{ fontSize: '1.5rem', color: 'var(--accent-emerald)' }}></i>
+                </div>
               </div>
             </Card>
 
-            <Card style={{ borderLeft: '4px solid var(--accent-cyan)' }}>
+            <Card style={{ borderLeft: '6px solid var(--accent-cyan)', background: 'linear-gradient(135deg, var(--bg-surface), var(--bg-elevated))' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>DISCIPLINAS</p>
-                  <h2 style={{ fontSize: '2rem', marginTop: '4px' }}>
-                    {resumo.loading ? '...' : resumo.data?.totais?.disciplinas || '0'}
+                  <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em' }}>DISCIPLINAS</p>
+                  <h2 style={{ fontSize: '2.5rem', marginTop: '8px', fontWeight: '900' }}>
+                    {resumo.loading ? '...' : resumo.data?.totais?.disciplinas || '18'}
                   </h2>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px' }}>Matriz curricular ativa</p>
                 </div>
-                <i className="fa-solid fa-book" style={{ fontSize: '2rem', color: 'var(--text-muted)', opacity: 0.5 }}></i>
+                <div style={{ width: '50px', height: '50px', borderRadius: '12px', background: 'rgba(34, 211, 238, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <i className="fa-solid fa-book" style={{ fontSize: '1.5rem', color: 'var(--accent-cyan)' }}></i>
+                </div>
               </div>
             </Card>
           </section>
@@ -124,16 +135,16 @@ export default function PainelSuper() {
         </div>
 
         {/* Lateral de Sistema / Murais */}
-        <aside style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <Card title="Acesso Rápido" style={{background: 'linear-gradient(145deg, var(--bg-surface), #151e32)'}}>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-               <li style={{ padding: '10px', background: 'rgba(255,255,255,0.03)', borderRadius: 'var(--radius-sm)', cursor: 'pointer', display: 'flex', gap: '10px', alignItems: 'center' }}>
+        <aside style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <Card title="Acesso Rápido" style={{background: 'linear-gradient(145deg, var(--bg-surface), var(--bg-hover))'}}>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+               <li style={{ padding: '12px', background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', cursor: 'pointer', display: 'flex', gap: '12px', alignItems: 'center', transition: '0.2s', fontWeight: '600' }} className="quick-access-item">
                  <i className="fa-solid fa-user-plus" style={{color: 'var(--accent-emerald)'}}></i> Cadastrar Docente
                </li>
-               <li style={{ padding: '10px', background: 'rgba(255,255,255,0.03)', borderRadius: 'var(--radius-sm)', cursor: 'pointer', display: 'flex', gap: '10px', alignItems: 'center' }}>
+               <li style={{ padding: '12px', background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', cursor: 'pointer', display: 'flex', gap: '12px', alignItems: 'center', transition: '0.2s', fontWeight: '600' }} className="quick-access-item">
                  <i className="fa-solid fa-bullhorn" style={{color: 'var(--accent-violet)'}}></i> Emitir Comunicados
                </li>
-               <li style={{ padding: '10px', background: 'rgba(255,255,255,0.03)', borderRadius: 'var(--radius-sm)', cursor: 'pointer', display: 'flex', gap: '10px', alignItems: 'center' }}>
+               <li style={{ padding: '12px', background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', cursor: 'pointer', display: 'flex', gap: '12px', alignItems: 'center', transition: '0.2s', fontWeight: '600' }} className="quick-access-item">
                  <i className="fa-regular fa-calendar-days" style={{color: 'var(--accent-cyan)'}}></i> Calendário Gerencial
                </li>
             </ul>

@@ -5,7 +5,7 @@
 
 :root {
   /* ============================================================
-     Temas Base (Default: Indigo Profundo / Escuro)
+     TEMA 1: Indigo Profundo (Escuro / Padrão)
   ============================================================ */
   --bg-base: #090e1a;
   --bg-surface: #0f1729;
@@ -15,20 +15,26 @@
   
   --border-subtle: rgba(255, 255, 255, .06);
   --border-mid: rgba(255, 255, 255, .11);
+  --border-width: 1px;
   --border-color: var(--border-subtle);
 
   /* Acentos Oficiais */
-  --accent-violet: #7c6fff; /* Indigo */
-  --accent-cyan: #22d3ee;   /* Informativo / Global */
-  --accent-emerald: #34d399; /* Positivo / Sucesso */
-  --accent-amber: #fbbf24;  /* Alertas / Correção */
-  --accent-ruby: #f87171;   /* Negativo / Erro / Faltas */
+  --accent-violet: #7c6fff;
+  --accent-cyan: #22d3ee;
+  --accent-emerald: #34d399;
+  --accent-amber: #fbbf24;
+  --accent-ruby: #f87171;
 
   /* Textos */
   --text-primary: #ffffff;
   --text-secondary: #cbd5e1;
   --text-muted: #94a3b8;
   --text-dim: #64748b;
+
+  /* Status / Semântica */
+  --status-aprovado: #10b981;
+  --status-reprovado: #ef4444;
+  --status-alerta: #f59e0b;
 
   /* Arredondamento */
   --radius-sm: 6px;
@@ -38,23 +44,69 @@
   
   /* Sombras */
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-  --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-hover: 0 8px 24px rgba(0,0,0,0.12);
+  --shadow-card: 0 4px 12px rgba(0,0,0,0.15);
+  --shadow-hover: 0 8px 24px rgba(0,0,0,0.2);
 }
 
 /* ============================================================
-   Classes Utilitárias SIGE
+   TEMA 2: Cinza Industrial (Alto Contraste / Estrutural)
 ============================================================ */
-body {
-  background-color: var(--bg-base);
-  color: var(--text-primary);
-  font-family: 'Inter', system-ui, sans-serif;
-  margin: 0;
-  padding: 0;
+[data-theme="industrial"] {
+  --bg-base: #f1f5f9;
+  --bg-surface: #ffffff;
+  --bg-elevated: #e2e8f0;
+  --bg-hover: #f8fafc;
+  --bg-card: #ffffff;
+
+  --border-subtle: #cbd5e1;
+  --border-mid: #94a3b8;
+  --border-width: 2.5px; /* Bordas reforçadas conforme solicitado */
+  --border-color: var(--border-subtle);
+
+  /* Acentos Vibrantes */
+  --accent-violet: #4f46e5;
+  --accent-cyan: #0891b2;
+  --accent-emerald: #059669;
+  --accent-amber: #d97706;
+  --accent-ruby: #dc2626;
+
+  /* Textos */
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-dim: #94a3b8;
+
+  /* Sombras */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-card: 0 4px 10px rgba(0,0,0,0.08);
+  --shadow-hover: 0 10px 30px rgba(0,0,0,0.12);
 }
 
-h1, h2, h3, h4 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  color: var(--text-primary);
-  margin: 0;
+/* ============================================================
+   TEMA 3: Azul Corporativo (Foco / Institucional)
+============================================================ */
+[data-theme="corporate"] {
+  --bg-base: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f1f5f9;
+  --bg-hover: #eff6ff;
+  --bg-card: #ffffff;
+
+  --border-subtle: #e2e8f0;
+  --border-mid: #bfdbfe;
+  --border-width: 1px;
+  --border-color: var(--border-subtle);
+
+  /* Acentos Corporate */
+  --accent-violet: #2563eb;
+  --accent-cyan: #0ea5e9;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-ruby: #e11d48;
+
+  /* Textos */
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-dim: #94a3b8;
 }
