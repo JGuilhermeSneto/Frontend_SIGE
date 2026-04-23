@@ -28,13 +28,16 @@ Edite `.env` quando precisar mudar a URL da API.
 
 O cliente axios está em `src/services/api.js`.
 
-## Rodar somente o front
+## 🐳 Execução com Docker (Recomendado)
 
-```bash
-npm run dev
-```
+O frontend agora está integrado ao ecossistema Docker do projeto. Para rodar tudo junto:
 
-Abra o endereço exibido no terminal (geralmente `http://127.0.0.1:5173/`).
+1. Vá para a pasta raiz do backend (`SIGE/`).
+2. Execute:
+   ```bash
+   docker-compose up --build
+   ```
+O frontend estará disponível em `http://localhost:5173`.
 
 ## Rodar Django + Vite juntos
 
