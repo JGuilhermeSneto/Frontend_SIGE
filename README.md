@@ -1,147 +1,72 @@
-# Front-end SIGE (React + Vite)
+# ⚛️ SIGE — Front-end (React + Vite Premium Client)
+### Interface de Alta Performance para Gestão e Análise de Dados
 
-Cliente web do **SIGE** em React 19, com proxy Vite para Django em desenvolvimento.
+> Este é o cliente web moderno do SIGE, desenvolvido em **React 19** com build ultra-rápido via **Vite**. Ele fornece a interface de alta densidade necessária para operações complexas de gestão escolar.
 
-> Este repositório faz parte do monorepo principal. Consulte `../../README.md` para o fluxo completo de setup.
+<br/>
 
-## Pré-requisitos
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-1.7-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
 
+<br/>
+
+[Instalação](#-instala%C3%A7%C3%A3o) · [Integração Django](#-integra%C3%A7%C3%A3o-django) · [Design System](#-design-system--uiux) · [Autenticação JWT](#-autentica%C3%A7%C3%A3o-jwt)
+
+---
+
+## 🏛️ 1. O Papel do Front-end no Ecossistema
+
+O Front-end React é um dos quatro pilares do SIGE, atuando como o terminal de controle para:
+1.  **Back-end Django**: Fornece a API REST (DRF) e autenticação.
+2.  **Front-end React**: Interface de Single Page Application (SPA) para BI e Gestão.
+3.  **Mobile (Expo)**: Compartilha a mesma lógica de consumo de API.
+4.  **IoT (ESP32)**: Os dados coletados via hardware são visualizados em tempo real nestes dashboards.
+
+---
+
+## 🚀 2. Instalação & Setup
+
+### Pré-requisitos
 - Node.js 20+
-- NPM ou Yarn
-- Back-end Django rodando em `http://127.0.0.1:8000` para desenvolvimento integrado
+- Back-end Django rodando (padrão `http://127.0.0.1:8000`)
 
-## Instalação
-
+### Setup Rápido
 ```bash
 cd frontend_SIGE/Frontend_SIGE
 npm install
-copy .env.example .env   # Windows
-# em Unix/macOS: cp .env.example .env
-```
-
-Edite `.env` quando precisar mudar a URL da API.
-
-## Variáveis de ambiente
-
-- `VITE_API_URL=` vazio (padrão): em `npm run dev`, o Vite usa o proxy para encaminhar `/api` para `http://127.0.0.1:8000`.
-- `VITE_API_URL=http://127.0.0.1:8000`: o app chama o Django diretamente, sem proxy.
-
-O cliente axios está em `src/services/api.js`.
-
-## 🐳 Execução com Docker (Recomendado)
-
-O frontend agora está integrado ao ecossistema Docker do projeto. Para rodar tudo junto:
-
-1. Vá para a pasta raiz do backend (`SIGE/`).
-2. Execute:
-   ```bash
-   docker-compose up --build
-   ```
-O frontend estará disponível em `http://localhost:5173`.
-
-## Rodar Django + Vite juntos
-
-1. No backend Django:
-
-```bash
-cd ../../SIGE
-python manage.py runserver
-```
-
-2. No frontend Vite:
-
-```bash
-cd frontend_SIGE/Frontend_SIGE
+copy .env.example .env
 npm run dev
 ```
 
-3. Use uma destas URLs:
+O app estará disponível em `http://localhost:5173`. O Vite utiliza um **proxy inteligente** para encaminhar chamadas de `/api/*` automaticamente para o Django.
 
-- `http://127.0.0.1:5173/` — front standalone em Vite
-- `http://127.0.0.1:8000/app/vite/` — React embutido no layout do SIGE
+---
 
-### O que acontece no dev
+## 🎨 3. Design System & UI/UX
 
-- O Vite serve a aplicação React e carrega módulos via `@vite/client`.
-- Chamadas para `/api/*` são proxied automaticamente para o Django.
-- O Django fornece a página shell em `apps/usuarios/templates/core/app_vite.html`.
+O Front-end segue rigorosamente o **Design System Premium** do SIGE:
+-   **Premium Glassmorphism**: Uso intensivo de transparências, blur e bordas suaves.
+-   **Design Tokens**: Cores e espaçamentos sincronizados com o Back-end (Temas: Indigo, Cinza e Azul).
+-   **Componentes Card**: Bordas universais e animações magnéticas de elevação no hover.
 
-## Build de produção
+---
 
-```bash
-npm run build
-```
+## 🔑 4. Autenticação & Segurança
 
-O build é gerado em `SIGE/apps/comum/static/vite`. Em produção, configure `VITE_API_URL` para a URL pública do backend e use `python manage.py collectstatic` no Django.
+-   **JWT (JSON Web Token)**: Autenticação persistente com renovação automática de tokens via `Axios Interceptors`.
+-   **CSRF Protection**: Integração nativa com o sistema de segurança do Django.
+-   **Encryption Aware**: A interface está preparada para exibir dados descriptografados pelo backend (AES-256), garantindo privacidade total.
 
-## Segurança em produção
+---
 
-No Django, mantenha:
+## 🗺️ 5. Roadmap de Evolução
 
-- `DEBUG=False`
-- `ALLOWED_HOSTS=seu-dominio.com`
-- `SECRET_KEY` forte e secreto
-- `SECURE_SSL_REDIRECT=True`
-- `SESSION_COOKIE_SECURE=True`
-- `CSRF_COOKIE_SECURE=True`
-- `CORS_ALLOWED_ORIGINS=https://seu-dominio.com`
-- `CSRF_TRUSTED_ORIGINS=https://seu-dominio.com`
+-   **Paridade Visual**: Atualizar todos os componentes para o padrão de bordas 48px e glassmorphism v2.0.
+-   **Dashboard IoT**: Implementar widgets de monitoramento em tempo real para os dados de presença RFID.
+-   **Offline First**: Implementação de Service Workers para permitir consultas básicas sem conexão.
 
-O backend já ativa proteção de headers seguros e cookies seguros quando `DEBUG=False`.
-
-## Autenticação JWT
-
-O projeto adicionou suporte a JWT para a API:
-
-- `POST /api/token/` → obtém `access` e `refresh` tokens usando e-mail e senha
-- `POST /api/token/refresh/` → renova o token de acesso
-
-O `src/services/api.js` utiliza o `access` token com o cabeçalho `Authorization: Bearer <token>` e tenta renovar o token automaticamente em caso de `401`.
-
-Guarde `access` e `refresh` no frontend com prudência; este projeto usa armazenamento local para a aplicação React.
-
-## Usar Vite em templates Django
-
-No Django, você pode carregar o mesmo entrypoint do Vite em qualquer template:
-
-```django
-{% load static vite_assets %}
-{% vite_entry 'src/main.jsx' %}
-```
-
-Com `DEBUG=True`, o Vite dev server é usado. Com `DEBUG=False`, o template carrega os assets buildados do Django.
-
-## Notas úteis
-
-- `vite.config.js` define o proxy `/api` → `http://127.0.0.1:8000` em desenvolvimento.
-- `src/services/api.js` inclui o token CSRF do cookie e redireciona para `/login` em 401/403.
-- O backend expõe `GET /api/ping/` e `GET /api/dashboard/resumo/`.
-
-## 🗺️ Roadmap de Atualização do Frontend (Baseado no Django)
-
-Com as recentes melhorias e implementações concluídas no backend (abril de 2026), o frontend React necessita refletir as seguintes atualizações arquiteturais e funcionais para manter paridade com o sistema base:
-
-### 1. Paridade de "Design System Premium"
-- **Temas Refatorados**: O sistema agora opera *apenas* com 3 temas homologados ("Indigo Profundo", "Cinza Industrial", "Azul Corporativo"). Componentes React estilizados via css/tailwind precisam ser ajustados para ler esses Design Tokens, descartando colorações genéricas.
-- **Componentes Card**: Replicar a UI do *Mural de Avisos* e das *Notificações*, que agora contam com bordas estilo card unificadas (`--bg-surface`, `radius-lg`) e animações de leve elevação (`translateY`) no hover magnético, além da coloração dinâmica em tags baseada em `publico_alvo`.
-
-### 2. Novos Módulos Integrados
-- **Biblioteca Automática:** Consumir a nova rota de Acervo Literário. O app precisa implementar o botão e lógica de "Reservar", tratando os limites (máximo de 2 livros por aluno) exibidos nos endpoints de resposta.
-- **Minha Saúde no Painel Aluno:** Mapear nas rotas do React a visualização do perfil de Saúde/Ficha Médica para alunos logados (permissões de API já corrigidas no Backend).
-
-### 3. Notificações Persistentes e Semânticas
-- Atualizar a interface de timeline ou sininho de notificações para incluir a tipagem de avisos (ícones por tipo):
-  - ⭐️ `NOTA` | ❌ `CHAMADA` | 📝 `CORRECAO` | ✔️ `GABARITO`.
-- Validar se a liberação de gabaritos em "Atividades" pelos professores reflete instantaneamente nos cards dos alunos na versão React.
-
-Se o front consumir esses dados via API (ex: `GET /api/dashboard/resumo/`), certifique-se de prever campos como `publico_alvo` ou tipo de notificação estendida.
-
-## Estrutura rápida
-
-| Caminho | Função |
-| :--- | :--- |
-| `src/services/api.js` | Cliente axios com CSRF e baseURL configurável |
-| `vite.config.js` | Dev proxy e build para Django static folder |
-| `SIGE/apps/usuarios/templates/core/app_vite.html` | Shell Django que injeta o Vite dev server |
-
-Para as instruções completas do Django, veja `SIGE/README.md`.
+---
+<div align="center">
+Interface desenvolvida para transformar dados em inteligência educacional.
+</div>
